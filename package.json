@@ -5,7 +5,8 @@
   "author": "AndersonCRocha <dan.sjose20@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npx nodemon --exec ts-node --files src/index.ts"
+    "dev": "npx nodemon --exec ts-node --files src/index.ts",
+    "lint": "npx eslint --fix \"**/*.{ts,tsx}\""
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -14,7 +15,13 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/module-alias": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
     "nodemon": "^2.0.12",
+    "prettier": "^2.4.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   }
