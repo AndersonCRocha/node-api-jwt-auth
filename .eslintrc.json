@@ -22,9 +22,13 @@
   },
   "settings": {
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
+      "alias": {
+        "map": [
+          ["@models", "./src/app/models"],
+          ["@controllers", "./src/app/controllers"]
+        ]
+      },
+      "typescript": {}
     }
   }
 }
