@@ -1,7 +1,9 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+
+import UserController from './app/controllers/UserController';
 
 const router = Router();
 
-router.get('/', (request: Request, response: Response) => response.send('Hello World!'));
+router.post('/users', UserController.create);
 
 export default router;

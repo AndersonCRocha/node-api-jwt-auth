@@ -5,7 +5,7 @@
     "emitDecoratorMetadata": true,
     "module": "commonjs",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

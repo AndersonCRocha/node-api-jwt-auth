@@ -1,7 +1,7 @@
 {
   "name": "api-jwt-auth",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.ts",
   "author": "AndersonCRocha <dan.sjose20@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -30,5 +30,8 @@
     "prettier": "^2.4.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }
