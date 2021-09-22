@@ -10,8 +10,14 @@ interface Props {
   password: string
 }
 
+interface AuthResponse {
+  accessToken: string;
+  accessTokenExpiration: number;
+  tokenType: string;
+}
+
 class AuthenticateUserUseCase {
-  async execute({ email, password }: Props): Promise<string> {
+  async execute({ email, password }: Props): Promise<AuthResponse> {
     const repository = getRepository(User);
 
     const user = await repository.findOne({ where: { email } });
@@ -26,7 +32,20 @@ class AuthenticateUserUseCase {
       throw new UnauthenticatedError();
     }
 
-    return jwt.sign({ id: user.id }, String(process.env.JWT_SECRET));
+    const accessTokenExpiration = Math.floor(Date.now() / 1000) + (60 * 60);
+    const accessToken = jwt.sign(
+      {
+        sub: user.id,
+        exp: accessTokenExpiration,
+      },
+      String(process.env.JWT_SECRET),
+    );
+
+    return {
+      accessToken,
+      accessTokenExpiration,
+      tokenType: 'Bearer',
+    };
   }
 }
 
