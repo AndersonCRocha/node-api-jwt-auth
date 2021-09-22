@@ -1,9 +1,10 @@
-import 'reflect-metadata';
+import 'express-async-errors';
 import express from 'express';
 
 import './database/connect';
 
 import router from './routes';
+import ErrorsMiddleware from './app/middlewares/ErrorsMiddleware';
 
 const app = express();
 
@@ -11,6 +12,6 @@ app.use(express.json());
 
 app.use(router);
 
-const port = process.env.PORT || 3000;
+app.use(ErrorsMiddleware);
 
-app.listen(port, () => console.log(`Server running in http://localhost:${port}`));
+app.listen(process.env.PORT, () => console.log(`🔥 Server running in http://localhost:${process.env.PORT}`));

@@ -6,7 +6,7 @@ class UserController {
     const { email, password } = request.body;
     const user = await CreateUserUseCase.execute({ email, password });
     Reflect.deleteProperty(user, 'password');
-    return response.send(user);
+    return response.status(201).send(user);
   }
 }
 
