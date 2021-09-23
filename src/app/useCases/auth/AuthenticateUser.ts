@@ -1,9 +1,9 @@
-import { getRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import UnauthenticatedError from '../../errors/UnauthenticatedError';
-import User from '../../models/User';
+import UserRepository from '../../repositories/UserRepository';
 
 interface Props {
   email: string,
@@ -18,14 +18,10 @@ interface AuthResponse {
 
 class AuthenticateUserUseCase {
   async execute({ email, password }: Props): Promise<AuthResponse> {
-    const repository = getRepository(User);
+    const repository = getCustomRepository(UserRepository);
 
-    const user = await repository.createQueryBuilder('users')
-      .addSelect('users.password')
-      .where({ email })
-      .getOne();
+    const user = await repository.findForLogin(email);
 
-    console.log(user);
     if (!user) {
       throw new UnauthenticatedError();
     }

@@ -1,6 +1,7 @@
-import { getRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 import UserAlreadyExistsError from '../../errors/UserAlreadyExistsError';
 import User from '../../models/User';
+import UserRepository from '../../repositories/UserRepository';
 
 interface Props {
   email: string,
@@ -9,7 +10,7 @@ interface Props {
 
 class CreateUserUseCase {
   async execute({ email, password }: Props): Promise<User> {
-    const repository = getRepository(User);
+    const repository = getCustomRepository(UserRepository);
 
     const userAlreadyExists = await repository.findOne({ where: { email } });
 
