@@ -20,8 +20,12 @@ class AuthenticateUserUseCase {
   async execute({ email, password }: Props): Promise<AuthResponse> {
     const repository = getRepository(User);
 
-    const user = await repository.findOne({ where: { email } });
+    const user = await repository.createQueryBuilder('users')
+      .addSelect('users.password')
+      .where({ email })
+      .getOne();
 
+    console.log(user);
     if (!user) {
       throw new UnauthenticatedError();
     }
@@ -34,11 +38,9 @@ class AuthenticateUserUseCase {
 
     const accessTokenExpiration = Math.floor(Date.now() / 1000) + (60 * 60);
     const accessToken = jwt.sign(
-      {
-        sub: user.id,
-        exp: accessTokenExpiration,
-      },
+      { sub: user.id },
       String(process.env.JWT_SECRET),
+      { expiresIn: '1h' },
     );
 
     return {
