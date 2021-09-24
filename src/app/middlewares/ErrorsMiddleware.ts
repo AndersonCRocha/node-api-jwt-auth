@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import UnauthenticatedError from '../errors/UnauthenticatedError';
 import UserAlreadyExistsError from '../errors/UserAlreadyExistsError';
 
-function ErrorsMiddleware(error: Error, request: Request, response: Response) {
+function errorsMiddleware(error: Error, request: Request, response: Response, next: NextFunction) {
   if (error instanceof UserAlreadyExistsError) {
     return response.status(409).send({ status: 409, message: error.message });
   }
@@ -11,7 +11,11 @@ function ErrorsMiddleware(error: Error, request: Request, response: Response) {
     return response.status(401).send({ status: 401, message: error.message });
   }
 
-  return response.status(500).send({ status: 500, message: 'Unknown error!' });
+  if (error instanceof Error) {
+    return response.status(500).send({ status: 500, message: 'Unknown error!' });
+  }
+
+  return next();
 }
 
-export default ErrorsMiddleware;
+export default errorsMiddleware;
