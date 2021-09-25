@@ -9,6 +9,15 @@ class User {
   id: string;
 
   @Column()
+  name: string;
+
+  @Column()
+  role: string;
+
+  @Column()
+  active: boolean;
+
+  @Column()
   email: string;
 
   @Column({ select: false })
