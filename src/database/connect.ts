@@ -1,4 +1,7 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 
-createConnection().then(() => console.log('📦 Database connected!!!'));
+createConnection().then(connection => {
+  console.log('📦 Database connected!!!');
+  connection.runMigrations();
+});

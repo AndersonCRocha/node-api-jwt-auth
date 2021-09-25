@@ -5,7 +5,7 @@
   "author": "AndersonCRocha <dan.sjose20@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npx nodemon --exec ts-node --files src/index.ts",
+    "dev": "npx nodemon -L --exec ts-node --files src/index.ts",
     "lint": "npx eslint --fix \"**/*.{ts,tsx}\"",
     "typeorm": "npx ts-node ./node_modules/typeorm/cli.js"
   },
